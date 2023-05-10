@@ -14,6 +14,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  dialog_flowtter:
 
 
   
@@ -32,8 +33,14 @@ dev_dependencies:
 
 
 flutter:
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: fonts/ChakraPetch-Regular.ttf
+
 
   uses-material-design: true
   assets:
     - images/
+    - assets/dialog_flow_auth.json
 

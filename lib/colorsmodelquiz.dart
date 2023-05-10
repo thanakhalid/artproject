@@ -27,39 +27,40 @@ class Option {
 
 final questions = [
   Question(
-    text: 'q1?',
+    text: 'two primary colors that produce white color are:',
     options: [
-      const Option(text: 'yes', isCorrect: true),
-      const Option(text: 'no', isCorrect: false),
-      const Option(text: 'no', isCorrect: false),
-      const Option(text: 'no', isCorrect: false),
+      const Option(text: 'Complementary colors', isCorrect: true),
+      const Option(text: 'primary colors', isCorrect: false),
+      const Option(text: 'original colord', isCorrect: false),
+      const Option(text: 'white and yellow', isCorrect: false),
     ],
   ),
   Question(
-    text: 'q2?',
+    text: 'The human eye can perceive about___different colors:',
     options: [
-      const Option(text: 'no', isCorrect: false),
-      const Option(text: 'yes', isCorrect: true),
-      const Option(text: 'no', isCorrect: false),
-      const Option(text: 'no', isCorrect: false),
+      const Option(text: '100', isCorrect: false),
+      const Option(text: '382000', isCorrect: true),
+      const Option(text: '2', isCorrect: false),
+      const Option(text: 'i am colorblind person', isCorrect: false),
     ],
   ),
   Question(
-    text: 'q3?',
+    text: 'which one is not a colors model:',
     options: [
-      const Option(text: 'no', isCorrect: false),
-      const Option(text: 'no', isCorrect: false),
-      const Option(text: 'yes', isCorrect: true),
-      const Option(text: 'no', isCorrect: false),
+      const Option(text: 'CMY', isCorrect: false),
+      const Option(text: 'RGB', isCorrect: false),
+      const Option(text: 'HLV', isCorrect: true),
+      const Option(text: 'CIE', isCorrect: false),
     ],
   ),
   Question(
-    text: 'q4?',
+    text:
+        '_______are obtained by adding a white pigment to the original color making it lighter.',
     options: [
-      const Option(text: 'no', isCorrect: false),
-      const Option(text: 'no', isCorrect: false),
-      const Option(text: 'no', isCorrect: false),
-      const Option(text: 'yes', isCorrect: true),
+      const Option(text: 'Shadows', isCorrect: false),
+      const Option(text: 'Tones', isCorrect: false),
+      const Option(text: 'Pure', isCorrect: false),
+      const Option(text: 'Tints', isCorrect: true),
     ],
   ),
 ];
@@ -75,31 +76,29 @@ class Colorsmodel extends StatelessWidget {
         width: double.maxFinite,
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("images/colors.jpg"), fit: BoxFit.cover),
+              image: AssetImage("images/gback.gif"), fit: BoxFit.cover),
         ),
         child: Column(
           children: [
             SizedBox(
               height: 50,
             ),
-            Card(
-              color: Colors.white60,
-              margin: EdgeInsets.all(10),
-              child: SizedBox(
-                width: 300,
-                height: 100,
-                child: Center(
-                    child: Text(
-                  'colors models quiz',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
-                )),
+            Center(
+                child: Text(
+              'colors models quiz',
+              style: TextStyle(
+                fontSize: 40.0,
+                color: Colors.white,
               ),
+            )),
+            SizedBox(
+              height: 50.0,
             ),
             ElevatedButton(
-              child: const Text('start quiz'),
+              child: const Text(
+                'start quiz',
+                style: TextStyle(fontSize: 30.0),
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -107,11 +106,17 @@ class Colorsmodel extends StatelessWidget {
                 );
               },
             ),
+            SizedBox(
+              height: 50,
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Go back!'),
+              child: const Text(
+                'Go back!',
+                style: TextStyle(fontSize: 30.0),
+              ),
             ),
           ],
         ),
@@ -138,6 +143,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       _Qno = 0;
       _score = 0;
       _isLocked = false;
+      for (int i = 0; i < questions.length; i++) {
+        questions[i].isLocked = false;
+      }
+      ;
     });
   }
 
@@ -155,46 +164,66 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          SizedBox(
-            height: 32,
+      child: Container(
+          height: double.maxFinite,
+          width: double.maxFinite,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/gback.gif"), fit: BoxFit.cover),
           ),
-          Text('Question $_Qno/ ${questions.length}'),
-          const Divider(
-            thickness: 1,
-            color: Colors.grey,
-          ),
-          Expanded(
-              child: PageView.builder(
-            itemCount: questions.length,
-            controller: _controller,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              final _question = questions[index];
-              return bulidQ(_question);
-            },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(
+                height: 32,
+              ),
+              Center(
+                  child: Text(
+                'Question $_Qno/ ${questions.length}',
+                style: TextStyle(color: Colors.white, fontSize: 30.0),
+              )),
+              const Divider(
+                thickness: 1,
+                color: Colors.white,
+              ),
+              Expanded(
+                  child: PageView.builder(
+                itemCount: questions.length,
+                controller: _controller,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final _question = questions[index];
+                  return bulidQ(_question);
+                },
+              )),
+              _isLocked ? bulidElevatedButton() : const SizedBox.shrink(),
+              const SizedBox(
+                height: 20,
+              )
+            ],
           )),
-          _isLocked ? bulidElevatedButton() : const SizedBox.shrink(),
-          const SizedBox(
-            height: 20,
-          )
-        ],
-      ),
     ));
   }
 
   Column bulidQ(Question question) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(
           height: 32,
         ),
-        Text(
-          question.text,
-          style: const TextStyle(fontSize: 25),
+        Center(
+          child: Card(
+              color: Colors.white30,
+              child: SizedBox(
+                  height: 200,
+                  width: 350,
+                  child: Center(
+                    child: Text(
+                      question.text,
+                      style: const TextStyle(fontSize:20, color: Colors.white),
+                    ),
+                  ))),
         ),
         const SizedBox(
           height: 32,
@@ -224,7 +253,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   ElevatedButton bulidElevatedButton() {
     return ElevatedButton(
         onPressed: () {
-          if (_Qno < questions.length-1) {
+          if (_Qno < questions.length - 1) {
             _controller.nextPage(
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeInExpo,
@@ -242,7 +271,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         )));
           }
         },
-        child: Text(_Qno < questions.length-1 ? 'Next Page' : 'see The Result'));
+        child: Text(
+          _Qno < questions.length - 1 ? 'Next Page' : 'see The Result',
+          style: TextStyle(fontSize: 30.0),
+        ));
   }
 }
 
@@ -270,23 +302,26 @@ class OptionWidget extends StatelessWidget {
     return GestureDetector(
         onTap: () => onClickOption(option),
         child: Container(
-            height: 50,
+            height: 80,
             padding: const EdgeInsets.all(12),
-            margin: const EdgeInsets.symmetric(vertical: 8),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Colors.white38,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: color),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  option.text,
-                  style: const TextStyle(fontSize: 20),
-                ),
-                getIconForOption(option, question),
-              ],
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(option.text,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      )),
+                  getIconForOption(option, question),
+                ],
+              ),
             )));
   }
 
@@ -332,22 +367,42 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(children: [
-          SizedBox(
-            height: 100,
-          ),
-          Text('you got $score/${questions.length}'),
-          ElevatedButton(
-            child: const Text('go back'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyApp()),
-              );
-            },
-          ),
-        ]),
+      body: Container(
+        height: double.maxFinite,
+        width: double.maxFinite,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("images/gback.gif"), fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: Column(children: [
+            SizedBox(
+              height: 100,
+            ),
+            Text(
+              'you got $score/${questions.length}',
+              style: TextStyle(
+                fontSize: 40.0,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              child: const Text(
+                'go back',
+                style: TextStyle(fontSize: 25.0),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp()),
+                );
+              },
+            ),
+          ]),
+        ),
       ),
     );
   }
