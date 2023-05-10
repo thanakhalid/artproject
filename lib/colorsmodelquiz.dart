@@ -130,7 +130,7 @@ class QuestionWidget extends StatefulWidget {
 }
 
 class _QuestionWidgetState extends State<QuestionWidget> {
-  int _Qno = 1;
+  int _Qno = 0;
   int _score = 0;
   bool _isLocked = false;
   void _resetq() {
@@ -147,6 +147,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   void initState() {
     super.initState();
     _controller = PageController(initialPage: 0);
+    _resetq();
   }
 
   @override
@@ -223,7 +224,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   ElevatedButton bulidElevatedButton() {
     return ElevatedButton(
         onPressed: () {
-          if (_Qno < questions.length) {
+          if (_Qno < questions.length-1) {
             _controller.nextPage(
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeInExpo,
@@ -241,7 +242,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         )));
           }
         },
-        child: Text(_Qno < questions.length ? 'Next Page' : 'see The Result'));
+        child: Text(_Qno < questions.length-1 ? 'Next Page' : 'see The Result'));
   }
 }
 
@@ -326,8 +327,7 @@ class OptionWidget extends StatelessWidget {
 }
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({Key? key, required this.score})
-      : super(key: key);
+  const ResultPage({Key? key, required this.score}) : super(key: key);
   final int score;
   @override
   Widget build(BuildContext context) {
