@@ -27,7 +27,7 @@ class Option {
 
 final questions = [
   Question(
-    text: 'q1',
+    text: 'q1?',
     options: [
       const Option(text: 'yes', isCorrect: true),
       const Option(text: 'no', isCorrect: false),
@@ -36,7 +36,7 @@ final questions = [
     ],
   ),
   Question(
-    text: 'q2',
+    text: 'q2?',
     options: [
       const Option(text: 'no', isCorrect: false),
       const Option(text: 'yes', isCorrect: true),
@@ -45,7 +45,7 @@ final questions = [
     ],
   ),
   Question(
-    text: 'q3',
+    text: 'q3?',
     options: [
       const Option(text: 'no', isCorrect: false),
       const Option(text: 'no', isCorrect: false),
@@ -54,7 +54,7 @@ final questions = [
     ],
   ),
   Question(
-    text: 'q4',
+    text: 'q4?',
     options: [
       const Option(text: 'no', isCorrect: false),
       const Option(text: 'no', isCorrect: false),
